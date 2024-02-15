@@ -18,6 +18,11 @@ python：3.10.10
 
 `python webui.py`，启动后自动打开浏览器访问webui页面，完成配置后点击`保存配置`，再`一键运行`即可。  
 
+# 效果图
+![image](https://github.com/Ikaros-521/bilibili_gift_screenshot/assets/40910637/0d4df52d-5a93-402c-be81-5794bde7c7a9)
+![image](https://github.com/Ikaros-521/bilibili_gift_screenshot/assets/40910637/032813dd-dbca-4b49-8497-a2742ab689b0)
+
+
 # 更新日志
 
 - 2024-2-15
