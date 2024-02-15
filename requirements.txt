@@ -1,0 +1,4 @@
+pyautogui
+colorlog
+git+https://gitee.com/ikaros-521/blivedm
+nicegui

@@ -1,0 +1,5 @@
+Miniconda3/
+log/*.txt
+out/*/*.png
+
+utils/__pycache__
