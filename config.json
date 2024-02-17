@@ -46,7 +46,7 @@
   "webui": {
     "ip": "127.0.0.1",
     "port": 8085,
-    "title": "demo",
+    "title": "B站送礼截图",
     "auto_run": false,
     "theme": {
       "choose": "默认黑白",

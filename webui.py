@@ -213,6 +213,40 @@ def goto_func_page():
     ,[[[.  .O[[.        [`        ,/         ......       ,^       .[[[[`     ,`      .... [[[[`                      ,[[[. .[.         ,/.     .`
 
     """
+    # -增加
+    def coordinate_add():
+        tmp_len = len(screenshot_coordinate_var)
+        with coordinate_card.style(card_css):
+            with ui.row():
+                screenshot_coordinate_var[str(tmp_len)] = ui.input(label=f"x1#{int(tmp_len / 4) + 1}", value="", placeholder='截图选框左上角的x坐标').style("width:100px;")
+                screenshot_coordinate_var[str(tmp_len + 1)] = ui.input(label=f"y1#{int(tmp_len / 4) + 1}", value="", placeholder='截图选框左上角的y坐标').style("width:100px;")
+                screenshot_coordinate_var[str(tmp_len + 2)] = ui.input(label=f"x2#{int(tmp_len / 4) + 1}", value="", placeholder='截图选框右上角的x坐标').style("width:100px;")
+                screenshot_coordinate_var[str(tmp_len + 3)] = ui.input(label=f"y2#{int(tmp_len / 4) + 1}", value="", placeholder='截图选框右上角的y坐标').style("width:100px;")
+                
+                
+    # -删除
+    def coordinate_del(index):
+        try:
+            coordinate_card.remove(int(index) - 1)
+            # 删除操作
+            keys_to_delete = [str(4 * (int(index) - 1) + i) for i in range(4)]
+            for key in keys_to_delete:
+                if key in screenshot_coordinate_var:
+                    del screenshot_coordinate_var[key]
+
+            # 重新编号剩余的键
+            updates = {}
+            for key in sorted(screenshot_coordinate_var.keys(), key=int):
+                new_key = str(int(key) - 4 if int(key) > int(keys_to_delete[-1]) else key)
+                updates[new_key] = screenshot_coordinate_var[key]
+
+            # 应用更新
+            screenshot_coordinate_var.clear()
+            screenshot_coordinate_var.update(updates)
+        except Exception as e:
+            ui.notify(position="top", type="negative", message=f"错误，索引值配置有误：{e}")
+            logging.error(traceback.format_exc())
+
     # 创建一个函数，用于运行外部程序
     def run_external_program(config_path="config.json", type="webui"):
         global running_flag, running_process
@@ -417,6 +451,7 @@ def goto_func_page():
                 config_data["screenshot"]["guard"]["min_price"] = input_screenshot_guard_min_price.value
 
                 tmp_arr = []
+                # logging.debug(screenshot_coordinate_var)
                 for index in range(len(screenshot_coordinate_var) // 4):
                     tmp_json = {
                         "x1": 0,
@@ -544,13 +579,20 @@ def goto_func_page():
                     input_screenshot_guard_min_price = ui.input(label='金额下限（元）', value=config.get("screenshot", "guard", "min_price"), placeholder='触发截图的最小金额，大于等于此值').style("width:200px;")
                 with ui.card().style(card_css):
                     ui.label("截图坐标")
+                    with ui.row():
+                        input_coordinate_index = ui.input(label='坐标索引', value="", placeholder='坐标组的排序号，就是说第一个组是1，第二个组是2，以此类推。请填写纯正整数')
+                        button_coordinate_add = ui.button('增加坐标组', on_click=coordinate_add, color=button_internal_color).style(button_internal_css)
+                        button_coordinate_del = ui.button('删除坐标组', on_click=lambda: coordinate_del(input_coordinate_index.value), color=button_internal_color).style(button_internal_css)
+
                     screenshot_coordinate_var = {}
+                    coordinate_card = ui.card()
                     for index, coordinate in enumerate(config.get("screenshot", "coordinate")):
-                        with ui.row():
-                            screenshot_coordinate_var[str(4 * index)] = ui.input(label="x1", value=coordinate["x1"], placeholder='截图选框左上角的x坐标').style("width:100px;")
-                            screenshot_coordinate_var[str(4 * index + 1)] = ui.input(label="y1", value=coordinate["y1"], placeholder='截图选框左上角的y坐标').style("width:100px;")
-                            screenshot_coordinate_var[str(4 * index + 2)] = ui.input(label="x2", value=coordinate["x2"], placeholder='截图选框右下角的x坐标').style("width:100px;")
-                            screenshot_coordinate_var[str(4 * index + 3)] = ui.input(label="y2", value=coordinate["y2"], placeholder='截图选框右下角的y坐标').style("width:100px;")
+                        with coordinate_card.style(card_css):
+                            with ui.row():
+                                screenshot_coordinate_var[str(4 * index)] = ui.input(label=f"x1#{int(len(screenshot_coordinate_var) / 4) + 1}", value=coordinate["x1"], placeholder='截图选框左上角的x坐标').style("width:100px;")
+                                screenshot_coordinate_var[str(4 * index + 1)] = ui.input(label=f"y1#{int(len(screenshot_coordinate_var) / 4) + 1}", value=coordinate["y1"], placeholder='截图选框左上角的y坐标').style("width:100px;")
+                                screenshot_coordinate_var[str(4 * index + 2)] = ui.input(label=f"x2#{int(len(screenshot_coordinate_var) / 4) + 1}", value=coordinate["x2"], placeholder='截图选框右下角的x坐标').style("width:100px;")
+                                screenshot_coordinate_var[str(4 * index + 3)] = ui.input(label=f"y2#{int(len(screenshot_coordinate_var) / 4) + 1}", value=coordinate["y2"], placeholder='截图选框右下角的y坐标').style("width:100px;")
 
         with ui.tab_panel(web_page).style(tab_panel_css):
             with ui.card().style(card_css):
