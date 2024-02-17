@@ -310,9 +310,9 @@ def start_server():
             # logging.info(f'[{client.room_id}] 醒目留言 ¥{message.price} {message.uname}：{message.message}')
             # logging.info(f"{message}")
 
-            message = message.message
             uname = message.uname
             price = message.price
+            message = message.message
 
             logging.info(f"用户：{uname} 发送 {price}元 SC：{message}")
 
