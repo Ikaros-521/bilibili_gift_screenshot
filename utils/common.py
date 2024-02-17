@@ -33,7 +33,7 @@ class Common:
                 4 返回数据：根据调用次数计数到100循环
                 5 返回数据：当前 时点分
                 6 返回数据：当前时间的 时, 分
-                7 返回数据：年-月-日 时-分-秒
+                7 返回数据：年-月-日 时-分-秒 毫秒
 
         Returns:
             str: 返回指定格式的时间字符串
@@ -93,7 +93,7 @@ class Common:
                 name='Asia/Shanghai',
             )
             beijing_now = utc_now.astimezone(SHA_TZ)  # 将 UTC 时间转换为北京时间
-            fmt = '%Y-%m-%d %H-%M-%S'
+            fmt = '%Y-%m-%d %H-%M-%S %f'
             now_fmt = beijing_now.strftime(fmt)
             return now_fmt
     

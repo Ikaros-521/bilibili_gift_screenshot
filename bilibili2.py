@@ -290,10 +290,12 @@ def start_server():
 
 
         def _on_buy_guard(self, client: blivedm.BLiveClient, message: web_models.GuardBuyMessage):
+            logging.debug(f"{message}")
+
             logging.info(f'[{client.room_id}] {message.username} 购买{message.gift_name}')
 
             gift_name = message.gift_name
-            user_name = message.uname
+            user_name = message.username
 
             data = {
                 "platform": "哔哩哔哩2",
@@ -306,6 +308,7 @@ def start_server():
 
         def _on_super_chat(self, client: blivedm.BLiveClient, message: web_models.SuperChatMessage):
             # logging.info(f'[{client.room_id}] 醒目留言 ¥{message.price} {message.uname}：{message.message}')
+            # logging.info(f"{message}")
 
             message = message.message
             uname = message.uname
