@@ -18,15 +18,18 @@
     "enable": true,
     "gift": {
       "enable": true,
-      "min_price": 1
+      "min_price": 1,
+      "screen_delay": 0
     },
     "sc": {
       "enable": true,
-      "min_price": 10
+      "min_price": 10,
+      "screen_delay": 0
     },
     "guard": {
       "enable": true,
-      "min_price": 10
+      "min_price": 10,
+      "screen_delay": 0
     },
     "coordinate": [
       {

@@ -1,4 +1,4 @@
-import logging, os
+import logging, os, time
 import threading
 import random
 import asyncio
@@ -96,6 +96,9 @@ def start_server():
             
             if data["total_price"] < float(config.get("screenshot", type, "min_price")):
                 return
+            
+            # 延迟截图
+            time.sleep(float(config.get("screenshot", type, "screen_delay")))
 
             # 截取全屏
             screenshot = pyautogui.screenshot()

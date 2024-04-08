@@ -444,11 +444,14 @@ def goto_func_page():
 
                 config_data["screenshot"]["enable"] = switch_screenshot_enable.value
                 config_data["screenshot"]["gift"]["enable"] = switch_screenshot_gift_enable.value
-                config_data["screenshot"]["gift"]["min_price"] = input_screenshot_gift_min_price.value
+                config_data["screenshot"]["gift"]["min_price"] = float(input_screenshot_gift_min_price.value)
+                config_data["screenshot"]["gift"]["screen_delay"] = float(input_screenshot_gift_screen_delay.value)
                 config_data["screenshot"]["sc"]["enable"] = switch_screenshot_sc_enable.value
-                config_data["screenshot"]["sc"]["min_price"] = input_screenshot_sc_min_price.value
+                config_data["screenshot"]["sc"]["min_price"] = float(input_screenshot_sc_min_price.value)
+                config_data["screenshot"]["sc"]["screen_delay"] = float(input_screenshot_sc_screen_delay.value)
                 config_data["screenshot"]["guard"]["enable"] = switch_screenshot_guard_enable.value
-                config_data["screenshot"]["guard"]["min_price"] = input_screenshot_guard_min_price.value
+                config_data["screenshot"]["guard"]["min_price"] = float(input_screenshot_guard_min_price.value)
+                config_data["screenshot"]["guard"]["screen_delay"] = float(input_screenshot_guard_screen_delay.value)
 
                 tmp_arr = []
                 # logging.debug(screenshot_coordinate_var)
@@ -571,12 +574,16 @@ def goto_func_page():
                 with ui.row():
                     switch_screenshot_gift_enable = ui.switch('礼物截图', value=config.get("screenshot", "gift", "enable")).style(switch_internal_css)
                     input_screenshot_gift_min_price = ui.input(label='金额下限（元）', value=config.get("screenshot", "gift", "min_price"), placeholder='触发截图的最小金额，大于等于此值').style("width:200px;")
+                    input_screenshot_gift_screen_delay = ui.input(label='截图延迟（秒）', value=config.get("screenshot", "gift", "screen_delay"), placeholder='触发截图的延迟时间，解决截图可能过快的问题').style("width:100px;")
 
                     switch_screenshot_sc_enable = ui.switch('SC截图', value=config.get("screenshot", "sc", "enable")).style(switch_internal_css)
                     input_screenshot_sc_min_price = ui.input(label='金额下限（元）', value=config.get("screenshot", "sc", "min_price"), placeholder='触发截图的最小金额，大于等于此值').style("width:200px;")
+                    input_screenshot_sc_screen_delay = ui.input(label='截图延迟（秒）', value=config.get("screenshot", "sc", "screen_delay"), placeholder='触发截图的延迟时间，解决截图可能过快的问题').style("width:100px;")
 
                     switch_screenshot_guard_enable = ui.switch('舰团截图', value=config.get("screenshot", "guard", "enable")).style(switch_internal_css)
                     input_screenshot_guard_min_price = ui.input(label='金额下限（元）', value=config.get("screenshot", "guard", "min_price"), placeholder='触发截图的最小金额，大于等于此值').style("width:200px;")
+                    input_screenshot_guard_screen_delay = ui.input(label='截图延迟（秒）', value=config.get("screenshot", "guard", "screen_delay"), placeholder='触发截图的延迟时间，解决截图可能过快的问题').style("width:100px;")
+
                 with ui.card().style(card_css):
                     ui.label("截图坐标")
                     with ui.row():
